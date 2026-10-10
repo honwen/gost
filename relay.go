@@ -56,7 +56,7 @@ func (c *relayConnector) ConnectContext(ctx context.Context, conn net.Conn, netw
 		Version: relay.Version1,
 	}
 	if udp {
-		req.Flags |= relay.FUDP
+		req.Cmd |= relay.FUDP
 	}
 
 	if c.user != nil {
@@ -74,7 +74,7 @@ func (c *relayConnector) ConnectContext(ctx context.Context, conn net.Conn, netw
 		}
 
 		if nport > 0 {
-			var atype uint8
+			var atype relay.AddrType
 			ip := net.ParseIP(host)
 			if ip == nil {
 				atype = relay.AddrDomain
@@ -190,7 +190,7 @@ func (h *relayHandler) Handle(conn net.Conn) {
 		}
 	}
 
-	udp := (req.Flags & relay.FUDP) == relay.FUDP
+	udp := (req.Cmd & relay.FUDP) == relay.FUDP
 	retries := 1
 	if h.options.Chain != nil && h.options.Chain.Retries > 0 {
 		retries = h.options.Chain.Retries

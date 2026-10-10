@@ -24,6 +24,8 @@ func init() {
 
 	if quiet {
 		gost.SetLogger(&gost.NopLogger{})
+	} else {
+		gost.SetLogger(&gost.LogLogger{})
 	}
 }
 func main() {
@@ -48,13 +50,14 @@ func udpRemoteForwardServer() {
 			}),
 		*/
 		nil,
-		time.Second*30)
+		&gost.UDPListenConfig{TTL: time.Second * 30})
 	if err != nil {
 		log.Fatal(err)
 	}
 	h := gost.UDPRemoteForwardHandler(
 		faddr,
 	)
-	s := &gost.Server{ln}
+	h.Init()
+	s := &gost.Server{Listener: ln}
 	log.Fatal(s.Serve(h))
 }

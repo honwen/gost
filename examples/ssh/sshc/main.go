@@ -25,6 +25,8 @@ func init() {
 
 	if quiet {
 		gost.SetLogger(&gost.NopLogger{})
+	} else {
+		gost.SetLogger(&gost.LogLogger{})
 	}
 }
 
@@ -52,7 +54,7 @@ func main() {
 		gost.ChainHandlerOption(chain),
 		gost.TLSConfigHandlerOption(tlsConfig()),
 	)
-	s := &gost.Server{ln}
+	s := &gost.Server{Listener: ln}
 	log.Fatal(s.Serve(h))
 }
 

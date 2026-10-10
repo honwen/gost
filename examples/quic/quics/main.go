@@ -4,52 +4,44 @@ import (
 	"crypto/tls"
 	"flag"
 	"log"
-	"time"
 
 	"github.com/ginuerzh/gost"
 )
 
 var (
-	laddr, faddr string
-	quiet        bool
+	laddr string
+	quiet bool
 )
 
 func init() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
-	flag.StringVar(&laddr, "L", ":18080", "listen address")
-	flag.StringVar(&faddr, "F", "localhost:6121", "forward address")
+	flag.StringVar(&laddr, "L", ":6121", "listen address")
 	flag.BoolVar(&quiet, "q", false, "quiet mode")
 	flag.BoolVar(&gost.Debug, "d", false, "debug mode")
+
 	flag.Parse()
 
 	if quiet {
 		gost.SetLogger(&gost.NopLogger{})
+	} else {
+		gost.SetLogger(&gost.LogLogger{})
 	}
 }
 
 func main() {
-	chain := gost.NewChain(
-		gost.Node{
-			Protocol:  "socks5",
-			Transport: "quic",
-			Addr:      faddr,
-			Client: &gost.Client{
-				Connector:   gost.SOCKS5Connector(nil),
-				Transporter: gost.QUICTransporter(&gost.QUICConfig{Timeout: 30 * time.Second, KeepAlive: true}),
-			},
-		},
-	)
+	quicServer()
+}
 
-	ln, err := gost.TCPListener(laddr)
+func quicServer() {
+	ln, err := gost.QUICListener(laddr, &gost.QUICConfig{TLSConfig: tlsConfig()})
 	if err != nil {
 		log.Fatal(err)
 	}
-	h := gost.SOCKS5Handler(
-		gost.ChainHandlerOption(chain),
-		gost.TLSConfigHandlerOption(tlsConfig()),
-	)
-	s := &gost.Server{ln}
+	h := gost.SOCKS5Handler(gost.TLSConfigHandlerOption(tlsConfig()))
+	log.Println("server listen on", laddr)
+
+	s := &gost.Server{Listener: ln}
 	log.Fatal(s.Serve(h))
 }
 

@@ -32,6 +32,8 @@ func init() {
 
 	if quiet {
 		gost.SetLogger(&gost.NopLogger{})
+	} else {
+		gost.SetLogger(&gost.LogLogger{})
 	}
 }
 
@@ -42,10 +44,14 @@ func main() {
 			// http+tcp
 			gost.Node{
 				Addr: "127.0.0.1:18080",
-				Client: gost.NewClient(
-					gost.HTTPConnector(url.UserPassword("admin", "123456")),
-					gost.TCPTransporter(),
-				),
+				Host: "127.0.0.1:18080",
+				DialOptions: []gost.DialOption{
+					gost.HostDialOption("127.0.0.1:18080"),
+				},
+				Client: &gost.Client{
+					Connector:   gost.HTTPConnector(url.UserPassword("admin", "123456")),
+					Transporter: gost.TCPTransporter(),
+				},
 			},
 		*/
 
@@ -53,10 +59,14 @@ func main() {
 			// socks5+tcp
 			gost.Node{
 				Addr: "127.0.0.1:11080",
-				Client: gost.NewClient(
-					gost.SOCKS5Connector(url.UserPassword("admin", "123456")),
-					gost.TCPTransporter(),
-				),
+				Host: "127.0.0.1:11080",
+				DialOptions: []gost.DialOption{
+					gost.HostDialOption("127.0.0.1:11080"),
+				},
+				Client: &gost.Client{
+					Connector:   gost.SOCKS5Connector(url.UserPassword("admin", "123456")),
+					Transporter: gost.TCPTransporter(),
+				},
 			},
 		*/
 
@@ -64,10 +74,14 @@ func main() {
 			// ss+tcp
 			gost.Node{
 				Addr: "127.0.0.1:18338",
-				Client: gost.NewClient(
-					gost.ShadowConnector(url.UserPassword("chacha20", "123456")),
-					gost.TCPTransporter(),
-				),
+				Host: "127.0.0.1:18338",
+				DialOptions: []gost.DialOption{
+					gost.HostDialOption("127.0.0.1:18338"),
+				},
+				Client: &gost.Client{
+					Connector:   gost.ShadowConnector(url.UserPassword("chacha20", "123456")),
+					Transporter: gost.TCPTransporter(),
+				},
 			},
 		*/
 
@@ -75,10 +89,14 @@ func main() {
 			// http+ws
 			gost.Node{
 				Addr: "127.0.0.1:18000",
-				Client: gost.NewClient(
-					gost.HTTPConnector(url.UserPassword("admin", "123456")),
-					gost.WSTransporter(nil),
-				),
+				Host: "127.0.0.1:18000",
+				DialOptions: []gost.DialOption{
+					gost.HostDialOption("127.0.0.1:18000"),
+				},
+				Client: &gost.Client{
+					Connector:   gost.HTTPConnector(url.UserPassword("admin", "123456")),
+					Transporter: gost.WSTransporter(nil),
+				},
 			},
 		*/
 
@@ -86,10 +104,14 @@ func main() {
 			// http+wss
 			gost.Node{
 				Addr: "127.0.0.1:18443",
-				Client: gost.NewClient(
-					gost.HTTPConnector(url.UserPassword("admin", "123456")),
-					gost.WSSTransporter(nil),
-				),
+				Host: "127.0.0.1:18443",
+				DialOptions: []gost.DialOption{
+					gost.HostDialOption("127.0.0.1:18443"),
+				},
+				Client: &gost.Client{
+					Connector:   gost.HTTPConnector(url.UserPassword("admin", "123456")),
+					Transporter: gost.WSSTransporter(nil),
+				},
 			},
 		*/
 
@@ -97,10 +119,14 @@ func main() {
 			// http+tls
 			gost.Node{
 				Addr: "127.0.0.1:11443",
-				Client: gost.NewClient(
-					gost.HTTPConnector(url.UserPassword("admin", "123456")),
-					gost.TLSTransporter(),
-				),
+				Host: "127.0.0.1:11443",
+				DialOptions: []gost.DialOption{
+					gost.HostDialOption("127.0.0.1:11443"),
+				},
+				Client: &gost.Client{
+					Connector:   gost.HTTPConnector(url.UserPassword("admin", "123456")),
+					Transporter: gost.TLSTransporter(),
+				},
 			},
 		*/
 
@@ -108,6 +134,10 @@ func main() {
 			// http2
 			gost.Node{
 				Addr: "127.0.0.1:1443",
+				Host: "127.0.0.1:1443",
+				DialOptions: []gost.DialOption{
+					gost.HostDialOption("127.0.0.1:1443"),
+				},
 				Client: &gost.Client{
 					Connector:   gost.HTTP2Connector(url.UserPassword("admin", "123456")),
 					Transporter: gost.HTTP2Transporter(nil),
@@ -119,10 +149,14 @@ func main() {
 			// http+kcp
 			gost.Node{
 				Addr: "127.0.0.1:18388",
-				Client: gost.NewClient(
-					gost.HTTPConnector(nil),
-					gost.KCPTransporter(nil),
-				),
+				Host: "127.0.0.1:18388",
+				DialOptions: []gost.DialOption{
+					gost.HostDialOption("127.0.0.1:18388"),
+				},
+				Client: &gost.Client{
+					Connector:   gost.HTTPConnector(nil),
+					Transporter: gost.KCPTransporter(nil),
+				},
 			},
 		*/
 
@@ -130,10 +164,14 @@ func main() {
 			// http+ssh
 			gost.Node{
 				Addr: "127.0.0.1:12222",
-				Client: gost.NewClient(
-					gost.HTTPConnector(url.UserPassword("admin", "123456")),
-					gost.SSHTunnelTransporter(),
-				),
+				Host: "127.0.0.1:12222",
+				DialOptions: []gost.DialOption{
+					gost.HostDialOption("127.0.0.1:12222"),
+				},
+				Client: &gost.Client{
+					Connector:   gost.HTTPConnector(url.UserPassword("admin", "123456")),
+					Transporter: gost.SSHTunnelTransporter(),
+				},
 			},
 		*/
 
@@ -141,6 +179,10 @@ func main() {
 			// http+quic
 			gost.Node{
 				Addr: "localhost:6121",
+				Host: "localhost:6121",
+				DialOptions: []gost.DialOption{
+					gost.HostDialOption("localhost:6121"),
+				},
 				Client: &gost.Client{
 					Connector:   gost.HTTPConnector(url.UserPassword("admin", "123456")),
 					Transporter: gost.QUICTransporter(nil),
@@ -150,11 +192,15 @@ func main() {
 		// socks5+h2
 		gost.Node{
 			Addr: "localhost:8443",
+			Host: "localhost:8443",
+			DialOptions: []gost.DialOption{
+				gost.HostDialOption("localhost:8443"),
+			},
 			Client: &gost.Client{
 				// Connector: gost.HTTPConnector(url.UserPassword("admin", "123456")),
 				Connector: gost.SOCKS5Connector(url.UserPassword("admin", "123456")),
-				// Transporter: gost.H2CTransporter(), // HTTP2 h2c mode
-				Transporter: gost.H2Transporter(nil), // HTTP2 h2
+				// Transporter: gost.H2CTransporter(""), // HTTP2 h2c mode
+				Transporter: gost.H2Transporter(nil, ""), // HTTP2 h2
 			},
 		},
 	)

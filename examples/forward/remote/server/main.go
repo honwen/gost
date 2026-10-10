@@ -7,6 +7,10 @@ import (
 	"github.com/ginuerzh/gost"
 )
 
+func init() {
+	gost.SetLogger(&gost.LogLogger{})
+}
+
 func main() {
 	sshRemoteForwardServer()
 }
@@ -21,7 +25,7 @@ func sshRemoteForwardServer() {
 		// gost.UsersHandlerOption(url.UserPassword("admin", "123456")),
 		gost.TLSConfigHandlerOption(tlsConfig()),
 	)
-	s := &gost.Server{ln}
+	s := &gost.Server{Listener: ln}
 	log.Fatal(s.Serve(h))
 }
 

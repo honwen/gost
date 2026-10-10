@@ -32,4 +32,8 @@ _testmain.go
 *.bak
 
 .vscode/
-cmd/gost/gost
+
+# Build artifacts
+/gost
+/cmd/gost/gost
+coverage.txt

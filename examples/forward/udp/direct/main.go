@@ -24,6 +24,8 @@ func init() {
 
 	if quiet {
 		gost.SetLogger(&gost.NopLogger{})
+	} else {
+		gost.SetLogger(&gost.LogLogger{})
 	}
 }
 func main() {
@@ -31,27 +33,28 @@ func main() {
 }
 
 func udpDirectForwardServer() {
-	ln, err := gost.UDPDirectForwardListener(laddr, time.Second*30)
+	ln, err := gost.UDPListener(laddr, &gost.UDPListenConfig{TTL: time.Second * 30})
 	if err != nil {
 		log.Fatal(err)
 	}
 	h := gost.UDPDirectForwardHandler(
 		faddr,
-	/*
-		gost.ChainHandlerOption(gost.NewChain(gost.Node{
-			Protocol:  "socks5",
-			Transport: "tcp",
-			Addr:      ":11080",
-			User:      url.UserPassword("admin", "123456"),
-			Client: &gost.Client{
-				Connector: gost.SOCKS5Connector(
-					url.UserPassword("admin", "123456"),
-				),
-				Transporter: gost.TCPTransporter(),
-			},
-		})),
-	*/
+		/*
+			gost.ChainHandlerOption(gost.NewChain(gost.Node{
+				Protocol:  "socks5",
+				Transport: "tcp",
+				Addr:      ":11080",
+				User:      url.UserPassword("admin", "123456"),
+				Client: &gost.Client{
+					Connector: gost.SOCKS5Connector(
+						url.UserPassword("admin", "123456"),
+					),
+					Transporter: gost.TCPTransporter(),
+				},
+			})),
+		*/
 	)
-	s := &gost.Server{ln}
+	h.Init()
+	s := &gost.Server{Listener: ln}
 	log.Fatal(s.Serve(h))
 }

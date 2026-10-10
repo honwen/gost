@@ -85,7 +85,7 @@ func (m *cidrMatcher) String() string {
 
 type domainMatcher struct {
 	pattern string
-	glob    glob.Glob
+	glob    *glob.Pattern
 }
 
 // DomainMatcher creates a Matcher for a specific domain pattern,

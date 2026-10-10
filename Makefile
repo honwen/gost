@@ -19,7 +19,6 @@ PLATFORM_LIST = \
 	linux-mipsle-hardfloat \
 	linux-mips64 \
 	linux-mips64le \
-	linux-s390x \
 	linux-riscv64 \
 	freebsd-386 \
 	freebsd-amd64
@@ -72,9 +71,6 @@ linux-mips64:
 
 linux-mips64le:
 	GOARCH=mips64le GOOS=linux $(GOBUILD) -o $(BINDIR)/$(NAME)-$@ $(GOFILES)
-
-linux-s390x:
-	GOARCH=s390x GOOS=linux $(GOBUILD) -o $(BINDIR)/$(NAME)-$@ $(GOFILES)
 
 linux-riscv64:
 	GOARCH=riscv64 GOOS=linux $(GOBUILD) -o $(BINDIR)/$(NAME)-$@ $(GOFILES)

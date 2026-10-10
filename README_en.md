@@ -9,10 +9,7 @@ gost - GO Simple Tunnel
 
 [![GoDoc](https://godoc.org/github.com/ginuerzh/gost?status.svg)](https://godoc.org/github.com/ginuerzh/gost)
 [![Go Report Card](https://goreportcard.com/badge/github.com/ginuerzh/gost)](https://goreportcard.com/report/github.com/ginuerzh/gost)
-[![codecov](https://codecov.io/gh/ginuerzh/gost/branch/master/graphs/badge.svg)](https://codecov.io/gh/ginuerzh/gost/branch/master)
 [![GitHub release](https://img.shields.io/github/release/ginuerzh/gost.svg)](https://github.com/ginuerzh/gost/releases/latest)
-[![Docker](https://img.shields.io/docker/pulls/ginuerzh/gost.svg)](https://hub.docker.com/r/ginuerzh/gost/)
-[![gost](https://snapcraft.io/gost/badge.svg)](https://snapcraft.io/gost)
  
 Features
 ------
@@ -56,23 +53,10 @@ cd gost/cmd/gost
 go build
 ```
 
-#### Docker
-
-```bash
-docker run --rm ginuerzh/gost -V
-```
-
 #### Homebrew
 
 ```bash
 brew install gost
-```
-
-#### Ubuntu store
-
-```bash
-sudo snap install core
-sudo snap install gost
 ```
 
 Getting started

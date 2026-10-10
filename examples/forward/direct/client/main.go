@@ -6,6 +6,10 @@ import (
 	"github.com/ginuerzh/gost"
 )
 
+func init() {
+	gost.SetLogger(&gost.LogLogger{})
+}
+
 func main() {
 	tcpForward()
 }
@@ -29,6 +33,7 @@ func tcpForward() {
 		"localhost:22",
 		gost.ChainHandlerOption(chain),
 	)
-	s := &gost.Server{ln}
+	h.Init()
+	s := &gost.Server{Listener: ln}
 	log.Fatal(s.Serve(h))
 }

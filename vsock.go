@@ -30,7 +30,7 @@ func (tr *vsockTransporter) Dial(addr string, options ...DialOption) (net.Conn, 
 	return opts.Chain.Dial(addr)
 }
 
-func parseUint32(s string) (uint32, error ) {
+func parseUint32(s string) (uint32, error) {
 	n, err := strconv.ParseUint(s, 10, 32)
 	if err != nil {
 		return 0, err

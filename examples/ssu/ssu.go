@@ -28,13 +28,13 @@ func ssuClient() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	cc := ss.NewSecurePacketConn(conn, cp, false)
+	cc := ss.NewSecurePacketConn(conn, cp)
 
 	raddr, _ := net.ResolveUDPAddr("udp", ":8080")
 	msg := []byte(`abcdefghijklmnopqrstuvwxyz`)
 	dgram := gosocks5.NewUDPDatagram(gosocks5.NewUDPHeader(0, 0, toSocksAddr(raddr)), msg)
 	buf := bytes.Buffer{}
-	dgram.Write(&buf)
+	dgram.WriteTo(&buf)
 	for {
 		log.Printf("%# x", buf.Bytes()[3:])
 		if _, err := cc.WriteTo(buf.Bytes()[3:], addr); err != nil {

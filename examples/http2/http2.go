@@ -33,6 +33,8 @@ func init() {
 
 	if quiet {
 		gost.SetLogger(&gost.NopLogger{})
+	} else {
+		gost.SetLogger(&gost.LogLogger{})
 	}
 }
 
@@ -64,7 +66,7 @@ func http2Server() {
 		gost.UsersHandlerOption(users...),
 		gost.AddrHandlerOption(laddr),
 	)
-	s := &gost.Server{ln}
+	s := &gost.Server{Listener: ln}
 	log.Fatal(s.Serve(h))
 }
 

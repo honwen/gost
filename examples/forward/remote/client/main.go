@@ -6,6 +6,10 @@ import (
 	"github.com/ginuerzh/gost"
 )
 
+func init() {
+	gost.SetLogger(&gost.LogLogger{})
+}
+
 func main() {
 	sshRemoteForward()
 }
@@ -30,6 +34,7 @@ func sshRemoteForward() {
 	h := gost.TCPRemoteForwardHandler(
 		"localhost:10000",
 	)
-	s := &gost.Server{ln}
+	h.Init()
+	s := &gost.Server{Listener: ln}
 	log.Fatal(s.Serve(h))
 }
