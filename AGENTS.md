@@ -133,7 +133,7 @@ public constructors (`SOCKS5Handler`, `TCPDirectForwardHandler`, `NewChain`, …
 | `github.com/xtaci/kcp-go/v5`, `xtaci/smux` | KCP transport, multiplexing | |
 | `github.com/shadowsocks/go-shadowsocks2`, `shadowsocks-go` | Shadowsocks ciphers | cipher+password come from the `Users` handler option (`initShadowCipher`) |
 | `github.com/go-gost/tls-dissector` | SNI parsing | |
-| `git.torproject.org/.../goptlib`, `gitlab.com/yawning/obfs4.git` | obfs4 transport | |
+| `gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib`, `gitlab.com/yawning/obfs4.git` | obfs4 transport | obfs4 ≥ 2023-10 imports the new `gitlab.torproject.org/...` goptlib path; the old `git.torproject.org/.../goptlib.git` is no longer used |
 | `github.com/miekg/dns` | DNS resolver / `dns` proxy | |
 
 ## Conventions

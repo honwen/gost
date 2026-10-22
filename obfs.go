@@ -19,10 +19,10 @@ import (
 
 	"github.com/go-log/log"
 
-	pt "git.torproject.org/pluggable-transports/goptlib.git"
 	dissector "github.com/go-gost/tls-dissector"
 	"gitlab.com/yawning/obfs4.git/transports/base"
 	"gitlab.com/yawning/obfs4.git/transports/obfs4"
+	pt "gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib"
 )
 
 const (

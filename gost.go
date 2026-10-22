@@ -19,8 +19,9 @@ import (
 	"github.com/go-log/log"
 )
 
-// Version is the gost version.
-const Version = "2.12.0-1"
+// Version is the gost version. Release builds override it via
+// -ldflags "-X github.com/ginuerzh/gost.Version=<version>".
+var Version = "2.12.0-2"
 
 // Debug is a flag that enables the debug log.
 var Debug bool

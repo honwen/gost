@@ -12,6 +12,8 @@ builds:
   - env:
       - CGO_ENABLED=0
     main: ./cmd/gost
+    ldflags:
+      - -s -w -X github.com/ginuerzh/gost.Version={{ .Version }}
     targets:
       - darwin_amd64
       - darwin_arm64
